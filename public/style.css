@@ -3,17 +3,70 @@
 }
 body{
     background-color: wheat;
+    padding-top: 200px;
+}
+main{
+   
     display: flex;
     flex-wrap: wrap;
 }
 section{
     margin: 10px;
+    background-color:#873436 ;
+    padding: 10px;
 }
 img{
     width: 200px;
     height: 200px;
 }
+a{
+    margin: 10px;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    float: right;
+}
+header{
+    width:100%;
+    background-color:#873436 ;
+    height: 150px;
+    line-height: 150px;
+    position: absolute;
+    top: 0;
+    left:0
+}
+#i1{
+    color:#873436;
+    text-align: center;
 
+}
+#i2{
+    color:#badb41;
+    text-align: center;
+
+}
+#i3{
+    color:#401ac7;
+    text-align: center;
+
+}
+#i4{
+    color:#074b1e;
+    text-align: center;
+
+}
+
+div{
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    margin: 80px;
+}
+#home{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+#formPage{
+    display: inline-block;
+}
 /* 
  Color Schema:
     Header, footer and cards backgrounds : #873436;

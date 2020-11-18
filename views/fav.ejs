@@ -8,10 +8,15 @@
 
 </head>
 <body>
+    <header>
+        <a href="/">Home</a>
+        <a href="/fav">My Characters</a>
+    </header>
     <h1>My Characters</h1>
+    <main>
     <%result.forEach(element=>{%>
         <section>
-            <img src="<%= element.image%>" alt="image">
+            
             <p>Name: <%= element.name%></p>
             <p>Patronus: <%= element.patronus%></p>
             <p>Alive: <%= element.alive%></p>
@@ -21,5 +26,6 @@
         </section>
 
     <%})%>
+</main>
 </body>
 </html>

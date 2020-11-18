@@ -8,15 +8,24 @@
 
 </head>
 <body>
+    <header>
+        <a href="/">Home</a>
+        <a href="/fav">My Characters</a>
+    </header>
+    <main id="formPage">
     <form action="/fav/update/<%=element.id%>?_method=PUT" method="POST">
-        <input type="text" name="name" value="<%=element.name%>">
-        <input type="text" name="patronus" value="<%=element.patronus%>">
-        <input type="text" name="alive" value="<%=element.alive%>">
+        <label for="name">Name</label><br>
+        <input type="text" name="name" value="<%=element.name%>"><br>
+        <label for="patronus">patronus</label><br>
+        <input type="text" name="patronus" value="<%=element.patronus%>"><br>
+        <label for="alive">Alive</label><br>
+        <input type="text" name="alive" value="<%=element.alive%>"><br>
 
 
     <button>update</button>
-    </form>
+    </form><br>
     <form action="/fav/delete/<%=element.id%>?_method=delete" method="POST">
-    <button>DELETE</button></form>
+    <button id="btn">DELETE</button></form>
+</main>
 </body>
 </html>

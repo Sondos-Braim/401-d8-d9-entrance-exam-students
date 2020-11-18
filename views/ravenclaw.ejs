@@ -8,6 +8,11 @@
 
 </head>
 <body>
+    <header>
+        <a href="/">Home</a>
+        <a href="/fav">My Characters</a>
+    </header>
+    <main>
     <%result.forEach(element=>{%>
         <section>
             <img src="<%= element.image%>" alt="image">
@@ -25,5 +30,6 @@
         </section>
 
     <%})%> 
+</main>
 </body>
 </html>

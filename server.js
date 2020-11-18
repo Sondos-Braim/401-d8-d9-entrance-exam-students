@@ -133,9 +133,9 @@ function renderForm(req,res){
     })
 }
 function updateChar(req,res){
-    const{image,name,patronus,alive}=req.body;
-    let sql='UPDATE characters SET image=$1,name=$2,patronus=$3,alive=$4 WHERE id=$5;';
-    let safeValues=[image,name,patronus,alive,req.params.id];
+    const{name,patronus,alive}=req.body;
+    let sql='UPDATE characters SET name=$1,patronus=$2,alive=$3 WHERE id=$4;';
+    let safeValues=[name,patronus,alive,req.params.id];
     client.query(sql,safeValues).then(()=>{
         res.redirect(`/fav`);
     })
