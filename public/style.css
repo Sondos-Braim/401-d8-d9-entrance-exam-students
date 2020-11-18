@@ -1,6 +1,18 @@
 *{
     font-family: "Crimson Text", serif;
 }
+body{
+    background-color: wheat;
+    display: flex;
+    flex-wrap: wrap;
+}
+section{
+    margin: 10px;
+}
+img{
+    width: 200px;
+    height: 200px;
+}
 
 /* 
  Color Schema:

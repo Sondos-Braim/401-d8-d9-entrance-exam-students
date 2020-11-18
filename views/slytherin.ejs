@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slytherin</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%result.forEach(element=>{%>
+        <section>
+            <img src="<%= element.image%>" alt="image">
+            <p>Name: <%= element.name%></p>
+            <p>Patronus: <%= element.patronus%></p>
+            <p>Alive: <%= element.alive%></p>
+            <form action="/fav" method="POST">
+                <input type="hidden" name="image" value="<%= element.image%>">
+                <input type="hidden" name="name" value="<%= element.name%>">
+                <input type="hidden" name="patronus" value="<%= element.patronus%>">
+                <input type="hidden" name="alive" value="<%= element.alive%>">
+                <button>Add to my Favorites</button>
+    
+                </form>
+        </section>
+
+    <%})%> 
+</body>
+</html>

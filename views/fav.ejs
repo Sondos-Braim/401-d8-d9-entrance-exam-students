@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite</title>
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+    <h1>My Characters</h1>
+    <%result.forEach(element=>{%>
+        <section>
+            <img src="<%= element.image%>" alt="image">
+            <p>Name: <%= element.name%></p>
+            <p>Patronus: <%= element.patronus%></p>
+            <p>Alive: <%= element.alive%></p>
+        <form action="/fav/<%=element.id%>" method="GET">
+        <button>View Character</button>
+        </form>
+        </section>
+
+    <%})%>
+</body>
+</html>

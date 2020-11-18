@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Character</title>
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+    <form action="/fav/update/<%=element.id%>?_method=PUT" method="POST">
+        <input type="text" name="name" value="<%=element.name%>">
+        <input type="text" name="patronus" value="<%=element.patronus%>">
+        <input type="text" name="alive" value="<%=element.alive%>">
+
+
+    <button>update</button>
+    </form>
+    <form action="/fav/delete/<%=element.id%>?_method=delete" method="POST">
+    <button>DELETE</button></form>
+</body>
+</html>
