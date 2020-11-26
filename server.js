@@ -32,7 +32,6 @@ app.use(methodOverride('_method'));
 app.use(express.static('./public'));
 app.use(express.static('./img'));
 
-app.use(express.static('./img'));
 
 // Database Setup
 
@@ -47,113 +46,79 @@ app.set('view engine', 'ejs');
 // ----------------------
 // ------- Routes -------
 // ----------------------
-app.get('/',homePage);
-app.get('/gryffindor/characters',handleGryffindor);
-app.get('/hufflepuff/characters',handleHufflepuff);
-app.get('/ravenclaw/characters',handleRavenclaw);
-app.get('/slytherin/characters',handleSlytherin );
-app.post('/fav',insertintoDB);
-app.get('/fav',renderFav);
-app.get('/fav/:id',renderForm);
-app.put('/fav/update/:id',updateChar);
-app.delete('/fav/delete/:id',deleteChar);
+app.get('/', homePage);
+app.get('/:house/characters', handleHouse);
+app.post('/fav', insertintoDB);
+app.get('/fav', renderFav);
+app.get('/fav/:id', renderForm);
+app.put('/fav/update/:id', updateChar);
+app.delete('/fav/delete/:id', deleteChar);
 
 
 // --------------------------------
 // ---- Pages Routes functions ----
 // --------------------------------
-function homePage(req,res){
+function homePage(req, res) {
     res.render('home');
 }
-function handleGryffindor(req,res){
-    let arr=[];
-    let url='http://hp-api.herokuapp.com/api/characters/house/gryffindor';
-    superagent.get(url).then(data=>{
-        data.body.map(element=>{
+function handleHouse(req, res) {
+    let arr = [];
+    let house = req.params.house;
+    let url = `http://hp-api.herokuapp.com/api/characters/house/${house}`;
+    superagent.get(url).then(data => {
+        data.body.map(element => {
             arr.push(new Character(element));
-        })
-        res.render('gryffindor',{result:arr});
+        });
+        res.render('house', { result: arr });
 
     });
 }
-function handleHufflepuff(req,res){
-    let arr=[];
-    let url='http://hp-api.herokuapp.com/api/characters/house/hufflepuff';
-    superagent.get(url).then(data=>{
-        data.body.map(element=>{
-            arr.push(new Character(element));
-        })
-        res.render('hufflepuff',{result:arr});
 
-    });
-}
-function handleRavenclaw(req,res){
-    let arr=[];
-    let url='http://hp-api.herokuapp.com/api/characters/house/ravenclaw';
-    superagent.get(url).then(data=>{
-        data.body.map(element=>{
-            arr.push(new Character(element));
-        })
-        res.render('ravenclaw',{result:arr});
-
-    });
-}
-function handleSlytherin(req,res){
-    let arr=[];
-    let url='http://hp-api.herokuapp.com/api/characters/house/slytherin';
-    superagent.get(url).then(data=>{
-        data.body.map(element=>{
-            arr.push(new Character(element));
-        })
-        res.render('slytherin',{result:arr});
-
-    });
-}
-function insertintoDB(req,res){
-    const{image, name, patronus, alive}=req.body;
-    let sql='INSERT INTO characters(image, name, patronus, alive) VALUES($1, $2, $3, $4);';
-    let safeValues=[image, name, patronus, alive];
-    client.query(sql,safeValues).then(()=>{
+function insertintoDB(req, res) {
+    const { image, name, patronus, alive } = req.body;
+    let sql = 'INSERT INTO characters(image, name, patronus, alive) VALUES($1, $2, $3, $4);';
+    let safeValues = [image, name, patronus, alive];
+    client.query(sql, safeValues).then(() => {
         res.redirect('/fav');
     });
 
 }
-function renderFav(req,res){
-    let sql='SELECT * FROM characters;';
-    client.query(sql).then(data=>{
-        res.render('fav',{result:data.rows});
+function renderFav(req, res) {
+    let sql = 'SELECT * FROM characters;';
+    client.query(sql).then(data => {
+        res.render('fav', { result: data.rows });
 
     });
 }
-function renderForm(req,res){
-    let sql='SELECT * FROM characters WHERE id=$1;';
-    let safeValues=[req.params.id];
-    client.query(sql,safeValues).then(data=>{
-        res.render('character',{element:data.rows[0]});
+function renderForm(req, res) {
+    let sql = 'SELECT * FROM characters WHERE id=$1;';
+    let safeValues = [req.params.id];
+    client.query(sql, safeValues).then(data => {
+        res.render('character', { element: data.rows[0] });
     })
 }
-function updateChar(req,res){
-    const{name,patronus,alive}=req.body;
-    let sql='UPDATE characters SET name=$1,patronus=$2,alive=$3 WHERE id=$4;';
-    let safeValues=[name,patronus,alive,req.params.id];
-    client.query(sql,safeValues).then(()=>{
+function updateChar(req, res) {
+    const { name, patronus, alive } = req.body;
+    let sql = 'UPDATE characters SET name=$1,patronus=$2,alive=$3 WHERE id=$4;';
+    let safeValues = [name, patronus, alive, req.params.id];
+    client.query(sql, safeValues).then(() => {
         res.redirect(`/fav`);
     })
 }
-function deleteChar(req,res){
-    let sql='DELETE FROM characters WHERE id=$1;';
-    let safeValues=[req.params.id];
-    client.query(sql,safeValues).then(()=>{
+function deleteChar(req, res) {
+    let sql = 'DELETE FROM characters WHERE id=$1;';
+    let safeValues = [req.params.id];
+    client.query(sql, safeValues).then(() => {
         res.redirect('/fav');
     })
 }
 //constructor
-function Character(data){
-    this.image=data.image;
-    this.name=data.name;
-    this.patronus=data.patronus;
-    this.alive=data.alive;
-    
+function Character(data) {
+    this.image = data.image;
+    this.name = data.name;
+    this.patronus = data.patronus;
+    this.alive = data.alive;
+
 }
 
 
